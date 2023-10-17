@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Wyomind\DataFeedManager\Block\Adminhtml\Feeds">
+        <plugin name="add_copy_category_mapping_button" type="MageSuite\DataFeedManagerAddons\Plugin\Wyomind\DataFeedManager\Block\Adminhtml\Feeds\AddCopyCategoryMappingButton"/>
+    </type>
+</config>
