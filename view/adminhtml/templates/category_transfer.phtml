@@ -48,26 +48,26 @@ $feeds = $viewModel->getFeeds();
             <div class="admin__field field field-entity">
                 <div class="admin__field-control control">
                     <div class="admin__field">
-                        <label class="label admin__field-label" for="origin-source">
+                        <label class="label admin__field-label" for="origin-feed">
                             <?= /* @noEscape */ __('From the origin feed') ?>
                         </label>&nbsp;
 
-                        <select class="admin__control-select" name="source_id" id="origin-source">
+                        <select class="admin__control-select" name="source_id" id="origin-feed">
                             <?php foreach ($feeds as $feed) : ?>
                                 <option value="<?= $block->escapeHtmlAttr($feed->getId()) ?>">
-                                    <?= $block->escapeHtml($feed->getName())?>
+                                    <?= $block->escapeHtml(sprintf('%s (ID: %d)', $feed->getName(), $feed->getId()))?>
                                 </option>
                             <?php endforeach; ?>
                         </select>&nbsp;
 
-                        <label class="label admin__field-label" for="destination-source">
+                        <label class="label admin__field-label" for="destination-feed">
                             <?= /* @noEscape */ __('to the destination feed') ?>
-                        </label>&nbsp;
+                        </label>&nbsp
 
-                        <select class="admin__control-select" name="target_id" id="destination-source">
+                        <select class="admin__control-select" name="target_id" id="destination-feed">
                             <?php foreach ($feeds as $feed) : ?>
                                 <option value="<?= $block->escapeHtmlAttr($feed->getId()) ?>">
-                                    <?= $block->escapeHtml($feed->getName())?>
+                                    <?= $block->escapeHtml(sprintf('%s (ID: %d)', $feed->getName(), $feed->getId()))?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
