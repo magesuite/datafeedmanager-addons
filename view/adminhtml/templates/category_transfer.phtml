@@ -1,0 +1,90 @@
+<?php
+/** @var \MageSuite\DataFeedManagerAddons\ViewModel\FeedSelection $viewModel */
+$viewModel = $block->getViewModel();
+$feeds = $viewModel->getFeeds();
+?>
+<div class="page-main-actions">
+    <div class="page-actions">
+        <div class="page-actions-buttons">
+            <div class="page-actions" data-ui-id="page-actions-toolbar-content-header">
+                <div class="page-actions-inner" data-title="Import">
+                    <div class="page-actions-buttons">
+                        <button
+                            id="back"
+                            title="Back"
+                            type="button"
+                            class="action-scalable back">
+                            <span><?= /* @noEscape */ __('Back') ?></span>
+                        </button>
+
+                        <button id="feed-operation"
+                                title="<?= $block->escapeHtmlAttr(__($block->getData('button_title'))) ?>"
+                                type="button"
+                                class="action-default scalable save primary">
+                            <span><?= $block->escapeHtml(__($block->getData('button_title'))) ?></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="entry-edit form-inline">
+    <form
+        action="<?= /* @noEscape */ $block->getUrl($block->getData('submit_url')) ?>"
+        id="feed-transfer-form"
+        method="post"
+        enctype="multipart/form-data">
+        <div>
+            <input name="form_key" type="hidden" value="<?= /* @noEscape */ $block->getFormKey() ?>">
+        </div>
+
+        <fieldset class="fieldset admin__fieldset" id="base_fieldset">
+            <legend class="admin__legend legend">
+                <span><?= /* @noEscape */ __('Transfer Category') ?></span>
+            </legend>
+
+            <div class="admin__field field field-entity">
+                <div class="admin__field-control control">
+                    <div class="admin__field">
+                        <label class="label admin__field-label" for="origin-source">
+                            <?= /* @noEscape */ __('From the origin feed') ?>
+                        </label>&nbsp;
+
+                        <select class="admin__control-select" name="source_id" id="origin-source">
+                            <?php foreach ($feeds as $feed) : ?>
+                                <option value="<?= $block->escapeHtmlAttr($feed->getId()) ?>">
+                                    <?= $block->escapeHtml($feed->getName())?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>&nbsp;
+
+                        <label class="label admin__field-label" for="destination-source">
+                            <?= /* @noEscape */ __('to the destination feed') ?>
+                        </label>&nbsp;
+
+                        <select class="admin__control-select" name="target_id" id="destination-source">
+                            <?php foreach ($feeds as $feed) : ?>
+                                <option value="<?= $block->escapeHtmlAttr($feed->getId()) ?>">
+                                    <?= $block->escapeHtml($feed->getName())?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<script>
+    require(['jquery'], function ($) {
+        $('#back').click(function () {
+            self.location.href='<?= /* @noEscape */ $block->getUrl($block->getData('back_url')) ?>';
+        });
+
+        $('#feed-operation').click(function () {
+            $('#feed-transfer-form').trigger('submit');
+        });
+    })
+</script>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block name="feed-category-transfer"
+                   template="MageSuite_DataFeedManagerAddons::category_transfer.phtml">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">MageSuite\DataFeedManagerAddons\ViewModel\FeedSelection</argument>
+                    <argument name="button_title" xsi:type="string">Save</argument>
+                    <argument name="submit_url" xsi:type="string">datafeedmanageraddons/category/post</argument>
+                    <argument name="back_url" xsi:type="string">datafeedmanager/feeds/index</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>
