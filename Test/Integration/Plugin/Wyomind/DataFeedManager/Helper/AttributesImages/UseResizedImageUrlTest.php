@@ -33,6 +33,20 @@ class UseResizedImageUrlTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($this->getExpectedImageUrl(), $imageLink);
     }
 
+    #[\Magento\TestFramework\Fixture\Config('web/unsecure/base_media_url', 'http://store.example.com/media/', 'store', 'default')]
+    #[\Magento\TestFramework\Fixture\DataFixture('Magento/Catalog/_files/product_with_image.php')]
+    public function testImageLinkKeepsFeedMediaUrlWhenCurrentStoreDiffers(): void
+    {
+        $product = $this->productRepository->get('simple');
+        $storeManager = $this->objectManager->get(\Magento\Store\Model\StoreManagerInterface::class);
+        $storeManager->setCurrentStore(\Magento\Store\Model\Store::ADMIN_CODE);
+
+        $imageLink = $this->attributesImages->imageLink($this->createFeed(), ['index' => 0], $product, 'product');
+
+        $this->assertSame($this->getExpectedImageUrl(), $imageLink);
+        $this->assertSame(\Magento\Store\Model\Store::ADMIN_CODE, $storeManager->getStore()->getCode());
+    }
+
     public function testPlaceholderImageLinkIsKept(): void
     {
         $product = $this->objectManager->create(\Magento\Catalog\Model\Product::class);

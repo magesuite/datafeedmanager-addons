@@ -19,8 +19,24 @@ class ResizedImageUrl
 
     public function getUrl(string $file, int $storeId, string $mediaBaseUrl): string
     {
-        $resizedImageUrl = $this->viewAssetImageFactory->create(['miscParams' => $this->getImageParams($storeId), 'filePath' => $file])->getUrl();
-        $storeMediaBaseUrl = $this->storeManager->getStore($storeId)->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+        $currentStoreId = (int)$this->storeManager->getStore()->getId();
+        $this->storeManager->setCurrentStore($storeId);
+
+        try {
+            return $this->replaceMediaBaseUrl($this->createResizedImageUrl($file, $storeId), $mediaBaseUrl);
+        } finally {
+            $this->storeManager->setCurrentStore($currentStoreId);
+        }
+    }
+
+    protected function createResizedImageUrl(string $file, int $storeId): string
+    {
+        return $this->viewAssetImageFactory->create(['miscParams' => $this->getImageParams($storeId), 'filePath' => $file])->getUrl();
+    }
+
+    protected function replaceMediaBaseUrl(string $resizedImageUrl, string $mediaBaseUrl): string
+    {
+        $storeMediaBaseUrl = $this->storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
 
         if (!str_starts_with($resizedImageUrl, $storeMediaBaseUrl)) {
             return $resizedImageUrl;
