@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Wyomind\DataFeedManager\Helper\AttributesImages">
+        <plugin name="use_resized_image_url" type="MageSuite\DataFeedManagerAddons\Plugin\Wyomind\DataFeedManager\Helper\AttributesImages\UseResizedImageUrl" sortOrder="10"/>
+    </type>
+
+    <type name="MageSuite\DataFeedManagerAddons\Model\Product\ResizedImageUrl">
+        <arguments>
+            <argument name="imageId" xsi:type="string">product_page_image_large</argument>
+        </arguments>
+    </type>
+</config>
